@@ -30,7 +30,20 @@ class _SensorsPageState extends State<SensorsPage> {
         setState(() {
           eventData = [event.x, event.y, event.z];
         });
+        handleProgress();
       });
+    }
+  }
+
+  void handleProgress() {
+    var speedOfMovement =
+        eventData!.reduce((value, element) => value + element).abs();
+
+    if (speedOfMovement > 50) {
+      progress += 0.01;
+      if (progress >= 1) {
+        progress = 0;
+      }
     }
   }
 
@@ -42,24 +55,29 @@ class _SensorsPageState extends State<SensorsPage> {
       appBar: AppBar(
         title: const Text("Accelerometer Data"),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 32),
-          Center(child: ProgressBar(progress: 1, maxWidth: deviceWidth - 32)),
-          SizedBox(height: 16),
-          eventData != null
-              ? Column(
-                  children: [
-                    Text("x: ${eventData![0].toStringAsPrecision(4)}"),
-                    Text("y: ${eventData![1].toStringAsPrecision(4)}"),
-                    Text("z: ${eventData![2].toStringAsPrecision(4)}"),
-                  ],
-                )
-              : Container(
-                  child: Text(
-                      "Something went wrong. Please make sure this app is allowed to use accelerometer data"),
-                ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child:
+                  ProgressBar(progress: progress, maxWidth: deviceWidth - 32),
+            ),
+            SizedBox(height: 16),
+            eventData != null
+                ? Column(
+                    children: [
+                      Text("x: ${eventData![0].toStringAsPrecision(4)}"),
+                      Text("y: ${eventData![1].toStringAsPrecision(4)}"),
+                      Text("z: ${eventData![2].toStringAsPrecision(4)}"),
+                    ],
+                  )
+                : Container(
+                    child: Text(
+                        "Something went wrong. Please make sure this app is able to use accelerometer data"),
+                  ),
+          ],
+        ),
       ),
     );
   }
