@@ -37,9 +37,9 @@ class _SensorsPageState extends State<SensorsPage> {
 
   void handleProgress() {
     var speedOfMovement =
-        eventData!.reduce((value, element) => value + element).abs();
+        eventData!.reduce((value, element) => value * element).abs();
 
-    if (speedOfMovement > 40) {
+    if (speedOfMovement > 50) {
       progress += 0.01;
       if (progress >= 1) {
         progress = 0;
