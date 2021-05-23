@@ -39,7 +39,7 @@ class _SensorsPageState extends State<SensorsPage> {
     var speedOfMovement =
         eventData!.reduce((value, element) => value + element).abs();
 
-    if (speedOfMovement > 50) {
+    if (speedOfMovement > 40) {
       progress += 0.01;
       if (progress >= 1) {
         progress = 0;
@@ -53,20 +53,33 @@ class _SensorsPageState extends State<SensorsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Accelerometer Data"),
+        title: const Text("Phone Shaker 3000"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
-              child:
-                  ProgressBar(progress: progress, maxWidth: deviceWidth - 32),
+            Text(
+              "Shake your phone!!!",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.blue),
             ),
-            SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: ProgressBar(
+                progress: progress,
+                maxWidth: deviceWidth - 32,
+              ),
+            ),
             eventData != null
                 ? Column(
                     children: [
+                      Text(
+                        "Accelerometer readings",
+                        style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                      ),
                       Text("x: ${eventData![0].toStringAsPrecision(4)}"),
                       Text("y: ${eventData![1].toStringAsPrecision(4)}"),
                       Text("z: ${eventData![2].toStringAsPrecision(4)}"),
