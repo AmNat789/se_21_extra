@@ -10,29 +10,22 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Stack(
-      alignment: AlignmentDirectional.centerStart,
-      children: [
-        Container(
-          width: maxWidth,
-          height: 64,
-          decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.black),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Stack(
+        children: [
+          Container(
+            width: maxWidth,
+            height: 64,
+            color: Colors.black.withOpacity(0.2),
           ),
-        ),
-        Container(
-          width: maxWidth * progress,
-          height: 64,
-          decoration: BoxDecoration(
+          Container(
+            width: maxWidth * progress,
+            height: 64,
             color: Colors.blue.withOpacity(0.7),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.black),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
